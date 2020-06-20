@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn{
+    @apply inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white transition ease-in-out duration-150;
+}
+.btn:hover {
+    @apply text-gray-500;
+}
+
+.btn-download{
+    @apply inline-flex items-center px-3 py-1 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white transition ease-in-out duration-150;
+}
+.btn-download:hover {
+    @apply text-gray-500 bg-gray-100;
+}
