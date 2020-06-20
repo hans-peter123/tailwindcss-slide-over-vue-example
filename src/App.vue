@@ -1,28 +1,81 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+
+    <button type="button" @click="show=showWrapper=true">show</button>
+
+
+    <div v-if="showWrapper" class="fixed inset-0 overflow-hidden">
+      <div class="absolute inset-0 overflow-hidden">
+        <section class="absolute inset-y-0 right-0 pl-10 max-w-full flex">
+          <!--
+            Slide-over panel, show/hide based on slide-over state.
+
+            Entering: "transform transition ease-in-out duration-500 sm:duration-700"
+              From: "translate-x-full"
+              To: "translate-x-0"
+            Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
+              From: "translate-x-0"
+              To: "translate-x-full"
+          -->
+          <transition
+                  appear
+                  enter-active-class="transform transition ease-in-out duration-500 sm:duration-700"
+                  enter-class="translate-x-full"
+                  enter-to-class="translate-x-0"
+                  leave-active-class="transform transition ease-in-out duration-500 sm:duration-700"
+                  leave-class="translate-x-0"
+                  leave-to-class="translate-x-full"
+                  @after-leave="showWrapper=false">
+
+            <div v-if="show" class="w-screen max-w-md">
+              <div class="h-full flex flex-col space-y-6 py-6 bg-white shadow-xl overflow-y-scroll">
+                <header class="px-4 sm:px-6">
+                  <div class="flex items-start justify-between space-x-3">
+                    <h2 class="text-lg leading-7 font-medium text-gray-900">
+                      Panel title
+                    </h2>
+                    <div class="h-7 flex items-center">
+                      <button @click="show=false" aria-label="Close panel" class="text-gray-400 hover:text-gray-500 transition ease-in-out duration-150">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </header>
+                <div class="relative flex-1 px-4 sm:px-6">
+                  <!-- Replace with your content -->
+                  <div class="absolute inset-0 px-4 sm:px-6">
+                    <div class="h-full border-2 border-dashed border-gray-200"></div>
+                  </div>
+                  <!-- /End replace -->
+                </div>
+              </div>
+            </div>
+
+          </transition>
+
+        </section>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data: () => ({
+    show: true,
+    showWrapper: true
+  }),
+  method: {
+    dismissSlide: function(){
+      this.showWrapper = false
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
